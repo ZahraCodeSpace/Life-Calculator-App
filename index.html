@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-tr from-pink-100 via-purple-100 to-indigo-100 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white/70 backdrop-blur-lg p-8 rounded-3xl shadow-2xl w-full max-w-md text-center border border-white/50">
+        <h1 class="text-3xl font-bold mb-6 text-purple-800">Life Calculator 🎀</h1>
+
+        <input type="number" id="ageInput" placeholder="Enter your age" 
+            class="w-full p-4 mb-6 rounded-2xl border border-purple-200 text-center outline-none focus:ring-4 focus:ring-pink-200">
+
+        <div class="grid grid-cols-2 gap-3 mb-6">
+            <button onclick="zahra('years')" class="bg-pink-400 text-white p-3 rounded-xl font-bold">Years</button>
+            <button onclick="zahra('months')" class="bg-purple-400 text-white p-3 rounded-xl font-bold">Months</button>
+            <button onclick="zahra('days')" class="bg-indigo-400 text-white p-3 rounded-xl font-bold">Days</button>
+            <button onclick="zahra('hours')" class="bg-blue-400 text-white p-3 rounded-xl font-bold">Hours</button>
+            <button onclick="zahra('minutes')" class="bg-teal-400 text-white p-3 rounded-xl font-bold">Minutes</button>
+            <button onclick="zahra('seconds')" class="bg-emerald-400 text-white p-3 rounded-xl font-bold">Seconds</button>
+        </div>
+
+        <div id="demo" class="bg-white/60 p-6 rounded-2xl min-h-[140px] flex flex-col items-center justify-center border border-purple-100">
+            <p class="text-purple-700">Click a button to see results! ✨</p>
+        </div>
+    </div>
+
+    <script>
+        function zahra(status) {
+            let age = document.getElementById('ageInput').value;
+            let display = document.getElementById('demo');
+            let currentYear = new Date().getFullYear();
+
+            if (!age || age < 0) {
+                display.innerHTML = '<span class="text-red-500 font-bold">Enter a valid age!</span>';
+                return;
+            }
+
+            let result = "";
+            if (status == 'years') { result = age + " Years"; }
+            else if (status == 'months') { result = (age * 12) + " Months"; }
+            else if (status == 'days') { result = (age * 365) + " Days"; }
+            else if (status == 'hours') { result = (age * 365 * 24) + " Hours"; }
+            else if (status == 'minutes') { result = (age * 365 * 24 * 60) + " Minutes"; }
+            else if (status == 'seconds') { result = (age * 365 * 24 * 60 * 60) + " Seconds"; }
+
+            let birthYearGregorian = (currentYear - age) - 1;
+            let birthYearSolar = birthYearGregorian - 621;
+
+            display.innerHTML = '<span class="text-purple-900 font-bold text-xl">✨ Your life ' + status + ' are:</span><br><br>' + 
+                                '<span class="text-2xl font-black text-pink-600">' + result + '</span>' +
+                                '<br><br><span class="text-sm text-gray-600">Birth Year: ' + birthYearGregorian + ' (G) | ' + birthYearSolar + ' (S)</span>';
+        }
+    </script>
+</body>
+</html>
